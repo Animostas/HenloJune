@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<style>
+  	  a {
+  	  	padding-left: 20px;
+  	  }
+  	  section {
+  	  	padding-top: 20px;
+  	  }
+    </style>
+    <script>
+      let start = 1;
+      let page = 1;
+      const interval = 200;
+
+      function stringToHTML(str) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(str, 'text/html');
+        return doc.body.childNodes[0];
+      };
+
+      function previousPage() {
+      	start -= interval;
+      	page -= 1;
+      	updateImages();
+      }
+
+      function nextPage() {
+      	start += interval;
+      	page += 1;
+      	updateImages();
+      }
+
+      function updateImages() {
+        let images = document.getElementById('images');
+        images.innerHTML = '';
+        for (let number=start; number<start + 200; number++) {
+          const listItem = stringToHTML(`<a target="_blank" style="" href="https://i2.wp.com/caps.pictures/201/0-2012/full/2012-movie-screencaps.com-${number}.jpg?strip=all"><img src="https://i2.wp.com/caps.pictures/201/0-2012/full/2012-movie-screencaps.com-${number}.jpg?w=200&strip=all" width="200" alt="" class="thumb" /></a>`);
+          images.appendChild(listItem);
+        }
+        let pageNumber= document.getElementById('current-page');
+        pageNumber.innerHTML = page;
+      }
+    </script>
+  </head>
+
+  <body>
+    <section>
+  	  <input class="calculate" type="button" value="CLICKY DIS BUTTO TO FIRST LOAD IMAGES" onclick="updateImages()" />
+  	  <input class="calculate" type="button" value="Previous page" onclick="previousPage()" />
+  	  <span id="current-page"></span>
+  	  <input class="calculate" type="button" value="Next page" onclick="nextPage()" />
+    </section>
+    <section></section>
+    <section>
+      <div id="images"></div>
+    </section>
+    <section>
+      <input class="calculate" type="button" value="CLICKY DIS BUTTO TO FIRST LOAD IMAGES" onclick="updateImages()" />
+      <input class="calculate" type="button" value="Previous page" onclick="previousPage()" />
+      <span id="current-page"></span>
+      <input class="calculate" type="button" value="Next page" onclick="nextPage()" />
+    </section>
+  </body>
+</html>
